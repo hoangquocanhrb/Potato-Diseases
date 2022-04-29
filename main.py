@@ -17,9 +17,14 @@ import torch.nn as nn
 from torchvision import transforms
 from network import VGG16
 
+from utils import get_firebase_data, config
+
 def args_input():
     parser = argparse.ArgumentParser(description='Set up mode')
-    parser.add_argument('--use_webcam', type=bool, default=False, help='Choose webcam or not')
+    parser.add_argument('--use_webcam', type=bool, default=config.USE_WEBCAM, help='Choose webcam or not')
+    parser.add_argument('--model_name', type=str, default=config.MODEL_NAME, help='Name of CNN model')
+    parser.add_argument('--firebase_config', type=dict, default=config.FIREBASE_CONFIG, help='Config of firebase')
+    parser.add_argument('--min_duration', type=int, default=config.MIN_DURATION, help='Duration of webcam')
     return parser
 
 class MainWindow:
@@ -27,7 +32,7 @@ class MainWindow:
         self.main_win = QMainWindow()
         self.uic = Ui_MainWindow()
         self.uic.setupUi(self.main_win)
-        # self.pixmap = QPixmap('/home/hqanh/Pictures/arrow.png')
+        
         self.uic.label_10.setScaledContents(True)
         self.uic.label_11.setScaledContents(True)
         self.uic.label_early_blight.setScaledContents(True)
@@ -39,7 +44,7 @@ class MainWindow:
         self.prob_label = [self.uic.prob_early,
                            self.uic.prob_late,
                            self.uic.prob_healthy]
-        # self.uic.label_10.setPixmap(self.pixmap)
+        
         self.img_captured = 0 # image to predict
         self.disease = {'name': 0, 'prob': 0}
         self.time = time.time()
@@ -48,29 +53,22 @@ class MainWindow:
 
         self.storage = storage
         self.database = database
+        self.firebase_receiver = get_firebase_data.firebase_receiver(storage=self.storage, database=self.database)
         # set timer timeout callback function
         self.use_webcam = use_webcam
         if use_webcam:
             self.timer.timeout.connect(self.viewCam)
         else:
             self.timer.timeout.connect(self.viewData)
-        # self.timer.timeout.connect(self.viewCam)
         # set control_bt callback clicked  function
         self.uic.control_bt.clicked.connect(self.controlTimer)
 
-    #get data from firebase
-    def getData(self):
-        self.storage.child('leaf.png').download('leaf.png')
-        # image = cv2.imread('leaf.png')
-        image = Image.open('leaf.png')
-        self.database.child('Data').update({'Image': 'received'})
-        return image
     
     def viewData(self):
         user = self.database.child('Data').get().val()
         
         if (user['Image'] == 'sent'):
-            self.img_captured = self.getData()
+            self.img_captured = self.firebase_receiver.getData()
             image = self.img_captured.copy()
             image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
             self.Predict()
@@ -100,8 +98,9 @@ class MainWindow:
         qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
         # show image in img_label
         if time.time() - self.time >= MIN_DURATION:
-            self.img_captured = image.copy()
+            self.img_captured = Image.fromarray(image.copy())
             self.uic.label_11.setPixmap(QPixmap.fromImage(qImg)) #set image for label 11
+            
             self.Predict()
             self.time = time.time()
             for d in self.disease_label_uic:
@@ -159,20 +158,8 @@ class MainWindow:
 
 if __name__ == "__main__":
     parser = args_input().parse_args()
-    
-    config = {
-    'apiKey': "AIzaSyApriNxJBruBDUVc5ge3y4bX3jZCR-ZThU",
-    'authDomain': "potato-diseases.firebaseapp.com",
-    'databaseURL': "https://potato-diseases-default-rtdb.firebaseio.com",
-    'projectId': "potato-diseases",
-    'storageBucket': "potato-diseases.appspot.com",
-    'messagingSenderId': "580742106890",
-    'appId': "1:580742106890:web:ed3e7805edb99b8a5234f3",
-    'measurementId': "G-1TSSJ3FM5V",
-    "serviceAccount": "potato_firebase_sdk.json"
-    }
 
-    firebase_storage = pyrebase.initialize_app(config)
+    firebase_storage = pyrebase.initialize_app(parser.firebase_config)
     storage = firebase_storage.storage()
     database = firebase_storage.database()
 
@@ -185,11 +172,11 @@ if __name__ == "__main__":
 
     model = VGG16(num_classes=3)
 
-    model.load_state_dict(torch.load('Models/VGG16_custom.pth', map_location=torch.device(device)))
+    model.load_state_dict(torch.load(parser.model_name, map_location=torch.device(device)))
     model.to(device)
     model.eval()
 
-    MIN_DURATION = 2 # time to capture image
+    MIN_DURATION = parser.min_duration
 
     app = QApplication(sys.argv)
     main_win = MainWindow(storage=storage, database=database, use_webcam=parser.use_webcam)

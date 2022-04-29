@@ -28,6 +28,5 @@ img = cv2.resize(img, (224,224))
 cv2.imwrite(img_path, img)
 
 storage.child("leaf.png").put(img_path)
-# storage.child('arrow.png').download('aa.png')
 
 database.child('Data').update({'Image': 'sent'})
