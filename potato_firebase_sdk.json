@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "potato-diseases",
+  "private_key_id": "21bc21b66c587c18048b3f4a0208b5ed91ae39c8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCQPtj48ImHQp59\nHCarNmN0RLIRkQI+z73sF7mVvMHiJbPlb+QAFZ1pXcPevJCklVdz7gmx5HJGBvQz\nx+bmyJ6kWAKz3TXOUKdLmNYul+gBNam9U1oW81EV3Vuft66VTsdg2ks4lspFjUyT\nl6pUfLhJYDWF7JB2kQdvHK0HBFyxb5aLZaAnjQVGjLvU46EklVl2abGHBpuQgFSV\nJgyrabjau4Ude3DSSZztyLxEoGOzBeCaDrTv/esO+KTBhnCO6AMyeNAZ4VQJzwXY\nGKo9YvOpXxbU1vTClBi28EFV3NO43GZ78cShQEn2qRXQXhua5bqsGe5g1MUaKsoN\nQzu+p7/dAgMBAAECggEABQt8D8gF31bh1fLwM67zlbaGjdCHBhOPWAMEAoWQ0fjk\nmYLEzbxaMYjnsVIVMvrM8+jtRBOYnydeG7ODOV4Z4k1e5tO24bzc/p4qG4R3k+QN\ne2m/YSvoXmRMCiixilcWtQxdcu2FkuvCs/f33pWWfzmsryVOovImkuj4I9WWUleA\nMytVRSwX98kmAif4ZfEu0lHMO+VSGpB/p2qo1Ay+Q/8WwgZ/QYjMQvxsMl6pem7z\nChlCKRlNvnpN9AjqxxZiRTgedYbij1lyx8OIcE8ZAFbr8YHg8jIA8IPjYq5U1m5K\nDdAbYWuJiN3/961MwrWgv18/Oa+HCXon6VGeAFFwsQKBgQDLf7DVYJce1HrYTgu+\nVjW0VKoFgea2SjBtU6qKFieLkp+HHjB/OKrb+nL20sTSw5uqwnlMZsSlZiYzTLzr\nMCHStJkd9XkBrxy5Vdh3vUQ+Y9SAzqBj32mcux1XmkN2v8Qmt9LQxGySv+oZtGOf\n68r9TlLD1kFBU+yAZMIn/gsB+QKBgQC1dbShnpyZ5Z7UF0fTIos1GOxXVsMsG9v4\nG5itjz3gC4YRPU6TYGhUH6Ha48L9S58TRPLflslg2KzHTmz5lL8AXXDZFSsYh5Jg\nB85GdzEoZTxfc0Yj9gNpdrYHyp6FZanhd7sPQbOcRjMlyFx/DlHZ8oCXQTazEt+L\nSfUHhMPmBQKBgCrLYY6dz2nmWScf0oxmaMjRfSfHV5NCKsjy7Uw4uHw7i1zI1n4K\nlrPICWEqlcWU6SmR2BxfCD+YKbRkEN6MsrAy1nhcZOQbxTicevdDUBSmvcuQqF4Y\nX4dcOiFwCXvxe/iAc87/X63EuiBJtSGuXnPCgtk4N2Tbl0Kw7bunSv1RAoGBALQv\npmcabhyvk3C9kVfJpHvcPMtZX0LMgzgyhwBJDcMNDlrOCtlzUQW/x2Po6LXGwrZK\nr/Vv8JXXcnISoUmP973wC1+0km+wJ5xuA9ma/9hB9po9iDerUaYG+Chyfcius+ss\njjZPIoAagS2ScK7F1GdcU25elmdpZUsV7FdD8ZbVAoGAdwvobjTh645kGxkPkntV\nWutpWVzhjKNO5ZbXpSAqSm2VvDj7xy6fak6FMNARQ4EPCyrst4JkH0GT5sOxJt9p\niTvXnc1OYkn18WYtbqkBp5OXWqhreQydR8aPB+Or2F/PqTvRn5NuRpn5FluR2Ixc\nHKQTCA4sxriKT/c9lSQBog8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-k8y9r@potato-diseases.iam.gserviceaccount.com",
+  "client_id": "102478344166529786895",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-k8y9r%40potato-diseases.iam.gserviceaccount.com"
+}
