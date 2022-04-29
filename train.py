@@ -101,7 +101,7 @@ def train_model(model, dataloader, criterion, scheduler, optimizer, num_epochs):
 
       if phase == 'val' and epoch_acc > best_acc:
         best_acc = epoch_acc
-        torch.save(model.state_dict(), 'Models/VGG16_custom.pth')
+        torch.save(model.state_dict(), 'Models/model_name.pth')
         print('Saved model')
 
     t_epoch_end = time.time()
