@@ -56,14 +56,17 @@ I used Firebase of Google to put and get image between robot and server.
 ## How to use ?
 
 '''
-    - Clone this repository
-    - pip install -r requirements.txt
-    - python main.py OPTIONS
+- Clone this repository
 
-    * Modes of the program (Possible OPTIONS):
+- pip install -r requirements.txt
 
-    --use_webcam: default=False, type=bool
-    --min_duration: default=2, type=int
+- python main.py OPTIONS
+
+* Modes of the program (Possible OPTIONS):
+
+--use_webcam: default=False, type=bool
+
+--min_duration: default=2, type=int
 '''
 
 More options in 'utils/config.py'
