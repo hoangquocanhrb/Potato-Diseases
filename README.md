@@ -35,8 +35,11 @@ I used Qt5 Designer to design UI. There are 2 buttons and 5 labels to show image
 <img src='Img/UI.png'>
 
 'Start' button: Start system
+
 'Reset' button: Clear all image and number on UI screen
+
 'ẢNH CHỤP ĐƯỢC' label: Show original image from robot
+
 'ẢNH XỬ LÝ' label: Show image after using grabcut method to segment leaf from background
 
 Predicted disease leaf image will show on small label bellow with its probability.
