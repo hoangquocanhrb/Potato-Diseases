@@ -45,7 +45,9 @@ class MainWindow:
                            self.uic.prob_late,
                            self.uic.prob_healthy]
         
-        self.img_captured = 0 # image to predict
+        self.img_captured = 0 # image to predict 
+        self.origin_img = 0 # origin image
+
         self.disease = {'name': 0, 'prob': 0}
         self.time = time.time()
         # create a timer
@@ -60,23 +62,32 @@ class MainWindow:
             self.timer.timeout.connect(self.viewCam)
         else:
             self.timer.timeout.connect(self.viewData)
+
         # set control_bt callback clicked  function
         self.uic.control_bt.clicked.connect(self.controlTimer)
+        # set reset callback clicked function
+        self.uic.Reset.clicked.connect(self.Reset)
 
-    
+    #Use image from firebase
     def viewData(self):
         user = self.database.child('Data').get().val()
         
         if (user['Image'] == 'sent'):
-            self.img_captured = self.firebase_receiver.getData()
+            self.img_captured, self.origin_img = self.firebase_receiver.getData()
             image = self.img_captured.copy()
-            image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
+            image = np.array(image)
+            self.origin_img = np.array(self.origin_img)
+
+            # image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
             self.Predict()
 
             height, width, channel = image.shape 
             step = channel * width
             qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
-            self.uic.label_10.setPixmap(QPixmap.fromImage(qImg))
+            self.uic.label_11.setPixmap(QPixmap.fromImage(qImg))
+
+            qImg2 = QImage(self.origin_img.data, width, height, step, QImage.Format_RGB888)
+            self.uic.label_10.setPixmap(QPixmap.fromImage(qImg2))
 
             for d in self.disease_label_uic:
                 d.setText('  ')
@@ -86,17 +97,13 @@ class MainWindow:
             self.disease_label_uic[self.disease['name']].setPixmap(QPixmap.fromImage(qImg))
             self.prob_label[self.disease['name']].setText('{}'.format(self.disease['prob']))
 
+    #Use image from webcam
     def viewCam(self):
-        # read image in BGR format
         ret, image = self.cap.read()
-        # convert image to RGB format
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        # get image infos
         height, width, channel = image.shape
         step = channel * width
-        # create QImage from image
         qImg = QImage(image.data, width, height, step, QImage.Format_RGB888)
-        # show image in img_label
         if time.time() - self.time >= MIN_DURATION:
             self.img_captured = Image.fromarray(image.copy())
             self.uic.label_11.setPixmap(QPixmap.fromImage(qImg)) #set image for label 11
@@ -113,6 +120,7 @@ class MainWindow:
 
         self.uic.label_10.setPixmap(QPixmap.fromImage(qImg))
 
+    # Predict disease
     def Predict(self):
         self.img_captured = data_transforms(self.img_captured)
         self.img_captured = self.img_captured.unsqueeze(0).to(device)
@@ -124,33 +132,33 @@ class MainWindow:
         self.disease['prob'] = prob.item()
         print('Predicted: ', status[preds.item()])
 
-    def Grabcut(self):
-        pass 
-
+    # Clear all image on UI
     def Reset(self):
-        pass 
+        for d in self.disease_label_uic:
+                d.setText('  ')
+        for p in self.prob_label:
+            p.setText('  ')
+        self.uic.label_10.setText('  ')
+        self.uic.label_11.setText('  ')
+
+        self.timer.stop()
+        self.uic.control_bt.setText("Start")
+        if self.use_webcam:
+                self.cap.release()
         
-    # start/stop timer
+    # Start/stop timer
     def controlTimer(self):
         self.time = time.time()
-        # if timer is stopped
         if not self.timer.isActive():
             if self.use_webcam:
-                # create video capture
                 self.cap = cv2.VideoCapture(0)
-            # start timer
             self.timer.start(20)
-            # update control_bt text
             self.uic.control_bt.setText("Stop")
             
-        # if timer is started
         else:
-            # stop timer
             self.timer.stop()
             if self.use_webcam:
-                # release video capture
                 self.cap.release()
-            # update control_bt text
             self.uic.control_bt.setText("Start")
 
     def show(self):

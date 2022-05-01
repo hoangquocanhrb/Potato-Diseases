@@ -122,6 +122,10 @@ class Ui_MainWindow(object):
         self.control_bt.setGeometry(QtCore.QRect(20, 170, 89, 25))
         self.control_bt.setStyleSheet("background-color: rgb(204, 0, 0);")
         self.control_bt.setObjectName("control_bt")
+        self.Reset = QtWidgets.QPushButton(self.centralwidget)
+        self.Reset.setGeometry(QtCore.QRect(20, 230, 89, 25))
+        self.Reset.setStyleSheet("background-color: rgb(78, 154, 6);")
+        self.Reset.setObjectName("Reset")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -142,11 +146,12 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "  ẢNH XỬ LÝ"))
         self.label_4.setText(_translate("MainWindow", " Úa sớm"))
         self.label_5.setText(_translate("MainWindow", " Héo muộn"))
-        self.label_6.setText(_translate("MainWindow", "Khỏe mạnh"))
+        self.label_6.setText(_translate("MainWindow", " Khỏe mạnh"))
         self.prob_healthy.setText(_translate("MainWindow", "Xác suất"))
         self.prob_late.setText(_translate("MainWindow", "Xác suất"))
         self.prob_early.setText(_translate("MainWindow", "Xác suất"))
         self.control_bt.setText(_translate("MainWindow", "Start"))
+        self.Reset.setText(_translate("MainWindow", "Reset"))
 
 
 if __name__ == "__main__":

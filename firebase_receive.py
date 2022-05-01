@@ -1,6 +1,7 @@
 import pyrebase
 import os
 
+
 config = {
   'apiKey': "AIzaSyApriNxJBruBDUVc5ge3y4bX3jZCR-ZThU",
   'authDomain': "potato-diseases.firebaseapp.com",
