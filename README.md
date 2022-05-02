@@ -18,7 +18,7 @@ To prepare the data, I recommend to create the following structure as the image 
 ## Training
 
 The model used for training is a pretrained VGG16. The classifier layer was modified with three classes and I freezed all layers before it. If you want to update all of them, just set 'requires_grad_(True)' in line 9 of 'network.py'.
-As input to the network, images was resize to (224,224). To classify diseases, I used Softmax activation with total probability is 1.
+As input to the network, images was resized to (224,224). To classify diseases, I used Softmax activation with total probability is 1.
 
 <img src='Img/vgg16.png'>
 
