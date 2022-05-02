@@ -68,3 +68,5 @@ I used Firebase of Google to put and get image between robot and server.
 ```
 
 More options in 'utils/config.py'
+
+Use 'firebase_send.py' to put image from '--img_path' to firebase

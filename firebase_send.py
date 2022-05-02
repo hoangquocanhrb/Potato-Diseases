@@ -43,7 +43,7 @@ database = firebase_storage.database()
 # back = cv2.resize(back, (224,224))
 # cv2.imwrite('back_ground.JPG', back)
 
-img_path = 'Test_img/' + parser.parse_args().img_path
+img_path = parser.parse_args().img_path
 origin_path = 'Test_img/origin_leaf.JPG'
 img = cv2.imread(img_path)
 img = cv2.resize(img, (224,224))
